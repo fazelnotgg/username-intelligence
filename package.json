@@ -1,0 +1,29 @@
+{
+  "name": "username-intelligence",
+  "version": "1.0.1",
+  "description": "Advanced username analysis library",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsup src/index.js --format esm --dts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "username",
+    "analysis",
+    "validation"
+  ],
+  "author": "fazelnotgege",
+  "license": "MIT",
+  "devDependencies": {
+    "rimraf": "^6.1.2",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  }
+}
