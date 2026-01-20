@@ -21,6 +21,14 @@
   ],
   "author": "fazelnotgege",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fazelnotgg/username-intelligence.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fazelnotgg/username-intelligence/issues"
+  },
+  "homepage": "https://github.com/fazelnotgg/username-intelligence#readme",
   "devDependencies": {
     "rimraf": "^6.1.2",
     "tsup": "^8.5.1",
