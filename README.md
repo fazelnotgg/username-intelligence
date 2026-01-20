@@ -26,12 +26,13 @@ Perfect for:
 
 ```bash
 npm install username-intelligence
+```
 
 Usage
 
 1. Basic Analysis
 The easiest way to use the library. Simply pass a username to get a full analysis.
-
+```
 import { analyzeUsername } from 'username-intelligence';
 
 // Example: Analyzing a username with leet speak
@@ -42,10 +43,10 @@ if (result.isValid) {
 } else {
   console.log("Username rejected:", result.reason);
 }
-
+```
 2. Example Output
 This is the JSON data structure returned by the analyzeUsername function.
-
+```
 {
   "username": "h4ck3r_man",
   "score": 85,
@@ -62,9 +63,10 @@ This is the JSON data structure returned by the analyzeUsername function.
     "entropy": 2.5
   }
 }
-
+```
 3. Advanced Options
 You can customize the validation rules to fit your application needs.
+```
 const options = {
   strict: true,             // If true, enables stricter validation
   blockProfanity: true,     // Automatically blocks profane words
@@ -73,7 +75,7 @@ const options = {
 };
 
 const result = analyzeUsername('admin_support', options);
-
+```
 Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
 1. Fork the repository
