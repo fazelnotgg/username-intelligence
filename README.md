@@ -28,10 +28,10 @@ Perfect for:
 npm install username-intelligence
 ```
 
-Usage
+## Usage
 
-1. Basic Analysis
-The easiest way to use the library. Simply pass a username to get a full analysis.
+### 1. Basic Analysis
+**The easiest way to use the library. Simply pass a username to get a full analysis.**
 ```
 import { analyzeUsername } from 'username-intelligence';
 
@@ -44,8 +44,8 @@ if (result.isValid) {
   console.log("Username rejected:", result.reason);
 }
 ```
-2. Example Output
-This is the JSON data structure returned by the analyzeUsername function.
+### 2. Example Output
+**This is the JSON data structure returned by the analyzeUsername function.**
 ```
 {
   "username": "h4ck3r_man",
@@ -64,8 +64,8 @@ This is the JSON data structure returned by the analyzeUsername function.
   }
 }
 ```
-3. Advanced Options
-You can customize the validation rules to fit your application needs.
+### 3. Advanced Options
+**You can customize the validation rules to fit your application needs.**
 ```
 const options = {
   strict: true,             // If true, enables stricter validation
@@ -76,13 +76,13 @@ const options = {
 
 const result = analyzeUsername('admin_support', options);
 ```
-Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
+### Contributing
+**Contributions are welcome! Please feel free to submit a Pull Request.**
 1. Fork the repository
 2. Create your feature branch (git checkout -b feature/AmazingFeature)
 3. Commit your changes (git commit -m 'Add some AmazingFeature')
 4. Push to the branch (git push origin feature/AmazingFeature)
 5. Open a Pull Request
 
-License
-Distributed under the MIT License. See LICENSE for more information.
+### License
+**Distributed under the MIT License. See LICENSE for more information.**
