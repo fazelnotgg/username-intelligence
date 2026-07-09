@@ -1,4 +1,13 @@
-test-opetimization.js
-.npmrc
+src/
+test-optimization.js
+tsconfig.json
+.prettierrc
 .gitignore
-node_modules
+.npmrc
+node_modules/
+*.log
+CONTRIBUTING.md
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+.github/

@@ -1,25 +1,50 @@
 {
   "name": "@fazelstudio/username-intelligence",
-  "version": "1.1.1",
-  "description": "Advanced username analysis library",
+  "version": "1.1.2",
+  "description": "Advanced username analysis library with security scoring, Unicode script detection, and spoofing prevention",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "files": [
     "dist",
     "README.md",
     "LICENSE"
   ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "clean": "rimraf dist",
-    "build": "npm run clean && tsup src/index.js --format esm --dts",
-    "prepublishOnly": "npm run build"
+    "build": "npm run clean && tsup src/index.js --format esm,cjs --dts",
+    "test": "node test-optimization.js",
+    "prepublishOnly": "npm run build",
+    "format": "prettier --write \"src/**/*.js\"",
+    "format:check": "prettier --check \"src/**/*.js\""
   },
   "keywords": [
     "username",
     "analysis",
-    "validation"
+    "validation",
+    "security",
+    "spoofing",
+    "homoglyph",
+    "unicode",
+    "entropy",
+    "bot-detection",
+    "profanity-filter"
   ],
-  "author": "fazelllyyy",
+  "author": {
+    "name": "Fazel",
+    "email": "zulfazlilsm@gmail.com",
+    "url": "https://github.com/fazelllyyy"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -30,6 +55,7 @@
   },
   "homepage": "https://github.com/fazelllyyy/username-intelligence#readme",
   "devDependencies": {
+    "prettier": "^3.2.0",
     "rimraf": "^6.1.2",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"

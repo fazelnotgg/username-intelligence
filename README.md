@@ -1,26 +1,19 @@
 # @fazelstudio/username-intelligence
 
-[![npm version](https://img.shields.io/npm/v/@fazelstudio/username-intelligence.svg?style=flat)](https://www.npmjs.com/package/@fazelstudio/username-intelligence)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://img.shields.io/npm/v/@fazelstudio/username-intelligence.svg)](https://www.npmjs.com/package/@fazelstudio/username-intelligence) [![CI](https://github.com/fazelllyyy/username-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/fazelllyyy/username-intelligence/actions/workflows/ci.yml) [![License](https://img.shields.io/npm/l/@fazelstudio/username-intelligence.svg)](https://opensource.org/licenses/MIT)
 
-**Global Username Analysis & Security Scoring Library**
-
-`@fazelstudio/username-intelligence` is an advanced, lightweight library designed to analyze usernames for modern applications. Beyond simple regex validation, it evaluates **security context**, **bot patterns**, **spoofing risks**, and supports **hundreds of global language scripts** (Unicode).
-
-Perfect for:
-- 🛡️ Detecting spam/bot accounts during registration.
-- 🎭 Preventing **Impersonation Attacks** (e.g., Homoglyph attacks like Cyrillic 'a' vs Latin 'a').
-- 🎮 Gamifying user onboarding by scoring username quality.
-- 🏢 Enforcing professional or safe naming conventions.
+Advanced username analysis library with security scoring, Unicode script detection, homoglyph spoofing prevention, and bot detection — zero regex magic.
 
 ## Features
 
-- 🌍 **Global Unicode Support**: Detects scripts from 100+ languages (Japanese, Arabic, Cyrillic, Hangul, etc.).
-- 🛡️ **Security Risk Assessment**: Identifies **Mixed Script Attacks** (Spoofing) and invisible characters.
-- 🤖 **Bot & Spam Detection**: Uses **Shannon Entropy** to detect random keystrokes (e.g., `xcv892nm`).
-- 🧠 **Smart Classification**: Categorizes styles (Corporate, Gamer, Personal, Bot, etc.).
-- 📊 **Quality Scoring**: Provides a 0-100 score for `readability` and `security_risk`.
-- 🔍 **Normalization**: Handles "Leet Speak" (e.g., `h4ck3r` → `hacker`) and mathematical fonts.
+- 🌍 **Unicode Script Detection** — identifies scripts from 100+ languages (Latin, Cyrillic, Arabic, Hangul, Devanagari, etc.)
+- 🛡️ **Spoofing Prevention** — detects homoglyph attacks (Cyrillic `а` vs Latin `a`) and invisible characters
+- 🤖 **Bot & Spam Detection** — Shannon entropy analysis catches random keystrokes (`xcv892nm`)
+- 🧠 **Smart Classification** — categorizes as Personal, Gamer, Corporate, Bot, Leet, and more
+- 📊 **Quality Scoring** — 0–100 scores for readability and security risk
+- 🔍 **Leet Speak Normalization** — `h4ck3r` → `hacker`, mathematical font stripping
+- ⚡ **Batch Analysis** — analyze hundreds of usernames with built-in LRU cache
+- 🪶 **Zero Dependencies** — lightweight, tree-shakeable ESM + CJS builds
 
 ## Installation
 
@@ -30,23 +23,21 @@ npm install @fazelstudio/username-intelligence
 
 ## Usage
 
-### 1. Basic Analysis
-**The easiest way to use the library. Simply pass a username to get a full analysis.**
-```
+### Basic Analysis
+
+```javascript
 import { analyzeUsername } from '@fazelstudio/username-intelligence';
 
-// Example: Analyzing a username with leet speak
 const result = analyzeUsername('h4ck3r_man');
 
-if (result.isValid) {
-  console.log("Username is valid!");
-} else {
-  console.log("Username rejected:", result.reason);
-}
+console.log(result.isValid);      // true
+console.log(result.classification); // "Gamer"
+console.log(result.security.risk_level); // "LOW"
 ```
-### 2. Example Output
-**This is the JSON data structure returned by the analyzeUsername function.**
-```
+
+### Example Output
+
+```json
 {
   "username": "h4ck3r_man",
   "score": 85,
@@ -64,25 +55,73 @@ if (result.isValid) {
   }
 }
 ```
-### 3. Advanced Options
-**You can customize the validation rules to fit your application needs.**
-```
-const options = {
-  strict: true,             // If true, enables stricter validation
-  blockProfanity: true,     // Automatically blocks profane words
-  reservedWords: ['admin', 'support', 'mod'], // Custom list of forbidden words
-  checkVisual: true         // Checks for visual similarity (e.g., adm1n == admin)
-};
 
-const result = analyzeUsername('admin_support', options);
-```
-### Contributing
-**Contributions are welcome! Please feel free to submit a Pull Request.**
-1. Fork the repository
-2. Create your feature branch (git checkout -b feature/AmazingFeature)
-3. Commit your changes (git commit -m 'Add some AmazingFeature')
-4. Push to the branch (git push origin feature/AmazingFeature)
-5. Open a Pull Request
+### Advanced Options
 
-### License
-**Distributed under the MIT License. See LICENSE for more information.**
+```javascript
+const result = analyzeUsername('admin_support', {
+  strict: true,
+  blockProfanity: true,
+  reservedWords: ['admin', 'support', 'mod'],
+  checkVisual: true,
+});
+```
+
+### Batch Analysis
+
+```javascript
+import { batchAnalyze } from '@fazelstudio/username-intelligence';
+
+const results = batchAnalyze(['john_doe', 'xX_gamer_Xx', 'admin']);
+
+results.forEach(r => {
+  console.log(`${r.username}: ${r.analysis.classification.style} (score: ${r.analysis.classification.scores.quality})`);
+});
+```
+
+## API Reference
+
+| Function | Description |
+|----------|-------------|
+| `analyzeUsername(username, options?)` | Analyze a single username |
+| `batchAnalyze(usernames, options?)` | Analyze multiple usernames |
+| `clearCache()` | Clear the LRU analysis cache |
+| `getCacheStats()` | Get cache hit/miss statistics |
+
+### Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `strict` | `boolean` | `false` | Enable stricter validation rules |
+| `blockProfanity` | `boolean` | `false` | Reject usernames containing profanity |
+| `reservedWords` | `string[]` | `[]` | Custom blocked words |
+| `checkVisual` | `boolean` | `true` | Check for visual spoofing |
+| `enableCache` | `boolean` | `true` | Enable LRU result caching |
+| `enableSecurity` | `boolean` | `true` | Enable security analysis |
+| `enableLinguistic` | `boolean` | `true` | Enable linguistic analysis |
+| `enableVisual` | `boolean` | `true` | Enable visual analysis |
+
+## Use Cases
+
+- **Registration Security** — block spoofed usernames during sign-up
+- **Spam Prevention** — detect bot-generated random usernames
+- **Brand Protection** — catch impersonation attempts (e.g. `раураl` with Cyrillic chars)
+- **UX Gamification** — score username quality during onboarding
+- **Moderation** — filter profanity and reserved words
+
+## Development
+
+```bash
+npm install
+npm run build
+node test-optimization.js
+npm run format
+```
+
+## License
+
+MIT &mdash; &copy; 2026 [Fazel](https://github.com/fazelllyyy)
+
+---
+
+**username-intelligence** — Know who's behind the name.
