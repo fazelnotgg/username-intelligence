@@ -21,8 +21,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "clean": "rimraf dist",
-    "build": "npm run clean && tsup src/index.js --format esm,cjs --dts",
+    "build": "tsup src/index.js --format esm,cjs --dts --clean",
     "test": "node test-optimization.js",
     "prepublishOnly": "npm run build",
     "format": "prettier --write \"src/**/*.js\"",
