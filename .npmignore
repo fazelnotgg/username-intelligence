@@ -1,0 +1,13 @@
+src/
+test-optimization.js
+tsconfig.json
+.prettierrc
+.gitignore
+.npmrc
+node_modules/
+*.log
+CONTRIBUTING.md
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+.github/
